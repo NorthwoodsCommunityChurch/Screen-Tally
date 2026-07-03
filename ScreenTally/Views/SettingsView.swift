@@ -33,7 +33,7 @@ struct SettingsView: View {
             }
 
             Section("About") {
-                Text("Limbus Live displays a colored border around your screen based on tally data from a Ross Carbonite switcher.")
+                Text("Screen Tally displays a colored border around your screen based on tally data from a Ross Carbonite switcher.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

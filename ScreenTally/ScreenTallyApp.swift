@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct LimbusLiveApp: App {
+struct ScreenTallyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {

@@ -10,7 +10,7 @@ struct MenuBarView: View {
         VStack(alignment: .leading, spacing: 12) {
             // Header
             HStack {
-                Text("Limbus Live")
+                Text("Screen Tally")
                     .font(.headline)
                 Spacer()
                 connectionIndicator

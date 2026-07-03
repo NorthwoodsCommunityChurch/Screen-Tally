@@ -1,4 +1,4 @@
-name: LimbusLive
+name: ScreenTally
 options:
   bundleIdPrefix: com.northwoodschurch
   deploymentTarget:
@@ -20,35 +20,35 @@ settings:
     CODE_SIGN_STYLE: Manual
 
 targets:
-  LimbusLive:
+  ScreenTally:
     type: application
     platform: macOS
     sources:
-      - path: LimbusLive
+      - path: ScreenTally
     dependencies:
       - package: Sparkle
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.northwoodschurch.limbuslive
-        PRODUCT_NAME: "Limbus Live"
+        PRODUCT_BUNDLE_IDENTIFIER: com.northwoodschurch.screentally
+        PRODUCT_NAME: "Screen Tally"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ENABLE_USER_SCRIPT_SANDBOXING: false
     info:
-      path: LimbusLive/Info.plist
+      path: ScreenTally/Info.plist
       properties:
-        CFBundleShortVersionString: "1.0.5"
-        CFBundleVersion: "1.0.5"
-        CFBundleDisplayName: Limbus Live
+        CFBundleShortVersionString: "1.0.6"
+        CFBundleVersion: "1.0.6"
+        CFBundleDisplayName: Screen Tally
         LSUIElement: true
         NSHumanReadableCopyright: "Copyright 2025 Northwoods Community Church"
         SUPublicEDKey: VIMxKZmmRokdMcHK5d3QU4+qHgBglmkVFP5aAVvxgqM=
-        SUFeedURL: https://northwoodscommunitychurch.github.io/app-updates/appcast-limbuslive.xml
+        SUFeedURL: https://northwoodscommunitychurch.github.io/app-updates/appcast-screentally.xml
 
 schemes:
-  LimbusLive:
+  ScreenTally:
     build:
       targets:
-        LimbusLive: all
+        ScreenTally: all
     run:
       config: Debug
     archive:

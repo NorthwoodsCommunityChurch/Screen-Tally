@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Limbus Live</string>
+	<string>Screen Tally</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,15 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.6</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.6</string>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright 2025 Northwoods Community Church</string>
 	<key>SUFeedURL</key>
-	<string>https://northwoodscommunitychurch.github.io/app-updates/appcast.xml</string>
+	<string>https://northwoodscommunitychurch.github.io/app-updates/appcast-screentally.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>VIMxKZmmRokdMcHK5d3QU4+qHgBglmkVFP5aAVvxgqM=</string>
 </dict>
