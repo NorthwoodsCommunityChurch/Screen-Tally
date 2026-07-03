@@ -36,8 +36,8 @@ targets:
     info:
       path: ScreenTally/Info.plist
       properties:
-        CFBundleShortVersionString: "1.0.6"
-        CFBundleVersion: "1.0.6"
+        CFBundleShortVersionString: "1.0.7"
+        CFBundleVersion: "1.0.7"
         CFBundleDisplayName: Screen Tally
         LSUIElement: true
         NSHumanReadableCopyright: "Copyright 2025 Northwoods Community Church"

@@ -106,7 +106,7 @@ struct MenuBarView: View {
             HStack {
                 Text("Port:")
                     .foregroundStyle(.secondary)
-                TextField("Port", value: $settings.port, format: .number)
+                TextField("Port", value: $settings.port, format: .number.grouping(.never))
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 80)
                 Button("Restart") {

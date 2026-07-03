@@ -8,7 +8,7 @@ struct SettingsView: View {
             Section("TSL Connection") {
                 HStack {
                     Text("Port:")
-                    TextField("Port", value: $settings.port, format: .number)
+                    TextField("Port", value: $settings.port, format: .number.grouping(.never))
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 100)
                 }
