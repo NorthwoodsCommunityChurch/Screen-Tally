@@ -14,7 +14,7 @@ built with XcodeGen.
 ---
 
 ## Status — 2026-07-03
-- **Stage:** active (shipping, v1.0.6)
+- **Stage:** active (shipping, v1.0.7)
 - **Renamed back from "Limbus Live" to "Screen Tally" on 2026-07-03.** The app shipped as
   "Screen Tally" v1.0.0, was rebranded to "Limbus Live" for versions 1.0.1–1.0.5, and is now back
   to "Screen Tally" — same codebase throughout, just the third name change. Bundle ID reverted to
@@ -27,6 +27,20 @@ built with XcodeGen.
   at all, so a reboot would have left the booth with no tally app running. The v1.0.6 release
   fixed this: redeployed to `media-mac`, dangling Login Item removed, Screen Tally re-registered
   as a proper login item. See Document history below for the day-of details.
+- **v1.0.7 fixed a port-display bug found during that redeploy**: the port `TextField` used
+  `format: .number`, whose default `IntegerFormatStyle` adds a locale thousands-separator (5203
+  showed as "5,203"). Fixed with `.number.grouping(.never)` in both `MenuBarView` and
+  `SettingsView`.
+- **Separately reported "stuck on Listening" status is NOT a code bug — confirmed via tcpdump.**
+  After the v1.0.6 redeploy, the connection status stayed on "Listening..." and a manual
+  "Restart" appeared to fix it. Investigation (app logs + a raw `tcpdump -i any port 5203`
+  capture on `media-mac`) showed **zero packets ever reach port 5203** — the listener is
+  correctly bound and the accept/connection code is untouched and working; the Carbonite simply
+  isn't attempting to reconnect. Likely cause: killing the old process during the redeploy also
+  killed the Carbonite's existing TCP session, and this TSL sender doesn't appear to auto-retry a
+  dropped connection. If this recurs, check/re-save the Carbonite's TSL UMD device entry in
+  DashBoard (or power-cycle it) rather than looking for a fix in `TSLListener.swift` — the code
+  is confirmed correct here.
 - **Works:** TSL 5.0 / 3.1 auto-detecting TCP listener; source picker; red (Program) / green (Preview)
   screen-border overlay with configurable thickness; multi-display target selection; menu-bar icon
   reflects tally state; debug mode to force red/green; Sparkle auto-update.
@@ -76,7 +90,7 @@ ScreenTally/
 ├── Models/
 │   ├── TallyState.swift       enum: program / preview / previewProgram / clear
 │   ├── AppSettings.swift      @Observable UserDefaults persistence (port, source, thickness, display, debug override)
-│   └── Version.swift          hardcoded "1.0.6", GitHub owner/repo, semver compare (feeds custom UpdateManager)
+│   └── Version.swift          hardcoded "1.0.7", GitHub owner/repo, semver compare (feeds custom UpdateManager)
 ├── Services/
 │   ├── TSLListener.swift      NWListener TCP server, TSL 5.0/3.1 parsing  ← LL-02/04/05/07 live here
 │   └── UpdateManager.swift    custom GitHub-release self-updater  ← LL-01/03/06 live here (redundant w/ Sparkle)
@@ -99,7 +113,7 @@ build/           local build output / xcarchive (gitignored)
 | Type / stack | macOS Swift (SwiftUI + AppKit + Network + Sparkle), menu-bar-only (`LSUIElement`) |
 | GitHub repo | `NorthwoodsCommunityChurch/Screen-Tally` (was `Limbus-Live` 2026-03 to 2026-07; GitHub forwards the old URL) |
 | Bundle ID | `com.northwoodschurch.screentally` |
-| Current version | 1.0.6 (CFBundleShortVersionString = CFBundleVersion = 1.0.6; `Version.current` = 1.0.6) |
+| Current version | 1.0.7 (CFBundleShortVersionString = CFBundleVersion = 1.0.7; `Version.current` = 1.0.7) |
 | Update feed (Sparkle) | `https://northwoodscommunitychurch.github.io/app-updates/appcast-screentally.xml` (app-specific; `appcast-limbuslive.xml` kept as historical record, no longer updated) |
 | Sparkle public key | `VIMxKZmmRokdMcHK5d3QU4+qHgBglmkVFP5aAVvxgqM=` (unchanged across the rename — same signing key) |
 | Secrets location | none in repo (no credentials; Sparkle public key is safe to commit). Sparkle private signing key lives in OneDrive secrets, never in git |
@@ -174,5 +188,6 @@ End a work session with **`/save`** — it commits, pushes, syncs docs, and leav
 ## Document history
 | Date | Change |
 |---|---|
+| 2026-07-03 | v1.0.7: fixed port field showing a thousands separator (`.number` → `.number.grouping(.never)`). Also investigated a separately-reported "stuck on Listening" status post-redeploy — confirmed via `tcpdump` that zero packets reach port 5203, ruling out a code bug; documented as a likely Carbonite-side reconnect issue in Status above. |
 | 2026-07-03 | Renamed app back from Limbus Live to Screen Tally (bundle id, GitHub repo, appcast, all docs) at v1.0.6. Investigation surfaced that `media-mac` had been running the original v1.0.0 Screen Tally build the whole Limbus Live era (2026-03–2026-07) — Limbus Live never reached production, only left a dangling Login Item. Fixed as part of this release: redeployed current code to `media-mac`, removed the dangling Login Item, registered Screen Tally as a proper login item, recorded `media-mac` (10.11.1.100) as the production machine in Key Identifiers (previously "unknown — verify"). |
 | 2026-05-29 | Rewrote CLAUDE.md to Northwoods standard template (was a 2-line security pointer); documented live dual-update-path divergence |
